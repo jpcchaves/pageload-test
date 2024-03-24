@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 public class Main {
   private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
   private static final Logger _logger = Logger.getLogger(Main.class.getName());
+  private static final String resultsDir = "results";
 
   public static void main(String[] args) throws IOException {
     Scanner scanner = new Scanner(System.in);
@@ -50,7 +51,7 @@ public class Main {
     }
 
     String filename = "page_load_times_" + sdf.format(new java.util.Date()) + ".txt";
-    File file = new File(filename);
+    File file = new File(resultsDir, filename);
 
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
       for (int i = 0; i < pageLoadTimes.size(); i++) {
