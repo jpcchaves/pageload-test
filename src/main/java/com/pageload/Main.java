@@ -6,9 +6,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -18,7 +18,9 @@ public class Main {
   private static final Logger _logger = Logger.getLogger(Main.class.getName());
   private static final String resultsDir = "results";
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) {
+    try {
+
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("Enter Base URL: ");
@@ -50,7 +52,7 @@ public class Main {
       pageLoadTimes.add(pageLoadTimesList);
     }
 
-    String filename = "page_load_times_" + sdf.format(new java.util.Date()) + ".txt";
+    String filename = "page_load_times_" + sdf.format(new Date()) + ".txt";
     File file = new File(resultsDir, filename);
 
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
@@ -74,5 +76,9 @@ public class Main {
     }
 
     driver.quit();
+
+    } catch (Exception ex) {
+      _logger.severe("An unexpected error happened");
+    }
   }
 }
