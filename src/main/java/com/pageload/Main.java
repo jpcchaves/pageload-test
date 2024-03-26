@@ -1,6 +1,7 @@
 package com.pageload;
 
 import com.pageload.config.selenium.ChromeOptionsConfig;
+import com.pageload.utils.CalculationUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -8,7 +9,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class Main {
@@ -66,7 +70,7 @@ public class Main {
 
         bw.write("\n\n");
 
-        long averageTime = calculateAveragePageLoad(pageLoadTimes.get(i));
+        long averageTime = CalculationUtils.calculateAveragePageLoad(pageLoadTimes.get(i));
 
         bw.write("Average: " + averageTime + " ms\n");
         bw.write("\n");
@@ -79,22 +83,5 @@ public class Main {
     } catch (Exception ex) {
       _logger.severe("An unexpected error happened");
     }
-  }
-
-  private static long calculateAveragePageLoad(List<Long> pageLoadList) {
-    List<Long> pageLoadListCopy = new ArrayList<>(List.copyOf(pageLoadList));
-    Collections.sort(pageLoadListCopy);
-
-    //remove max and min values
-    pageLoadListCopy.remove(0);
-    pageLoadListCopy.remove(pageLoadListCopy.size() - 1);
-
-    long totalTime = 0;
-
-    for (Long tempo : pageLoadListCopy) {
-      totalTime += tempo;
-    }
-
-    return totalTime / pageLoadListCopy.size();
   }
 }
