@@ -7,6 +7,7 @@ public class ChromeOptionsConfig {
     public static ChromeOptions prepareChromeOptions() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
+        chromeOptions.addArguments("--headless=new");
         return chromeOptions;
     }
 }
