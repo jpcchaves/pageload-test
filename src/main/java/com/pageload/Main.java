@@ -22,10 +22,10 @@ public class Main {
   private static final File resultsDir = new File("results");
   public static void main(String[] args) {
     try (Scanner scanner = new Scanner(System.in)) {
-      System.out.println("Enter Base URL: ");
+      print("Enter Base URL: ");
       String urlBase = scanner.nextLine();
 
-      System.out.println("Enter page paths (separated by commas): ");
+      print("Enter page paths (separated by commas): ");
       String paths = scanner.nextLine();
 
       WebDriver driver = new ChromeDriver(ChromeOptionsConfig.prepareChromeOptions());
@@ -81,5 +81,9 @@ public class Main {
         bw.write("Average: " + averageTime + " ms\n\n");
       }
     }
+  }
+
+  private static void print(String message) {
+    System.out.println(message);
   }
 }
