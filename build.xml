@@ -1,0 +1,42 @@
+<project>
+    <property name="lib.dir" location="lib"/>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="init">
+        <mkdir dir="build/classes"/>
+        <path id="classpath">
+            <fileset dir="${lib.dir}" includes="*.jar"/>
+        </path>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="src" destdir="build/classes">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/PageLoadTest-0.0.1-SNAPSHOT.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="com.pageload.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <path id="run.classpath">
+            <pathelement location="build/jar/PageLoadTest-0.0.1-SNAPSHOT.jar"/>
+            <fileset dir="lib">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+
+        <java classname="com.pageload.Main" fork="true">
+            <classpath refid="run.classpath"/>
+        </java>
+    </target>
+</project>
