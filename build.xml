@@ -1,5 +1,7 @@
 <project>
     <property name="lib.dir" location="lib"/>
+    <property name="iterations" value="5"/>
+
 
     <target name="clean">
         <delete dir="build"/>
@@ -35,8 +37,10 @@
             </fileset>
         </path>
 
-        <java classname="com.pageload.Main" fork="true">
+        <java classname="com.pageload.Main" fork="true" >
             <classpath refid="run.classpath"/>
+
+            <arg value="${iterations}"/>
         </java>
     </target>
 </project>

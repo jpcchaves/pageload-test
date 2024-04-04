@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class PageLoadTask {
     private static final Logger _logger = Logger.getLogger(PageLoadTask.class.getName());
 
-    public static void executePageLoad() {
+    public static void executePageLoad(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Enter Base URL: ");
             String urlBase = scanner.nextLine();
@@ -29,18 +29,16 @@ public class PageLoadTask {
             for (String path : paths.split(",")) {
                 _logger.info(String.format(" Running pageload test for path: %s... ", path));
 
-                System.lineSeparator();
-
                 String url = urlBase + path.trim();
 
                 List<Long> pageLoadTimesList = new ArrayList<>();
 
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < getIteration(args); i++) {
+                    driver.get("chrome://settings/clearBrowserData");
                     driver.manage().deleteAllCookies();
 
                     long loadTime = PageLoadUtils.performPageLoadTest(driver, url);
                     _logger.info(String.format("\n %s. %s milliseconds", i + 1, loadTime));
-                    System.lineSeparator();
                     pageLoadTimesList.add(loadTime);
                 }
 
@@ -54,5 +52,13 @@ public class PageLoadTask {
         } catch (IOException | IllegalArgumentException ex) {
             _logger.severe("An unexpected error occurred: " + ex.getMessage());
         }
+    }
+
+    private static int getIteration(String[] args) {
+        if(args.length > 0) {
+            return Integer.parseInt(args[0]);
+        }
+
+        return 5;
     }
 }
