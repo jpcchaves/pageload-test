@@ -24,19 +24,23 @@ public class PageLoadTask {
             String paths = scanner.nextLine();
 
             WebDriver driver = new ChromeDriver(ChromeOptionsConfig.prepareChromeOptions());
-
             List<List<Long>> pageLoadTimes = new ArrayList<>();
 
             for (String path : paths.split(",")) {
-                _logger.info(String.format("Running pageload test for path: %s...", path));
+                _logger.info(String.format(" Running pageload test for path: %s... ", path));
+
+                System.lineSeparator();
 
                 String url = urlBase + path.trim();
 
                 List<Long> pageLoadTimesList = new ArrayList<>();
 
                 for (int i = 0; i < 5; i++) {
+                    driver.manage().deleteAllCookies();
+
                     long loadTime = PageLoadUtils.performPageLoadTest(driver, url);
-                    _logger.info(String.format("%s. %s milliseconds", i + 1, loadTime));
+                    _logger.info(String.format("\n %s. %s milliseconds", i + 1, loadTime));
+                    System.lineSeparator();
                     pageLoadTimesList.add(loadTime);
                 }
 
