@@ -31,7 +31,10 @@ public class FileUtils {
                 bw.write("\n\n");
 
                 long averageTime = CalculationUtils.calculateAveragePageLoad(pageLoadTimes.get(i));
+
                 bw.write("Average: " + averageTime + " ms\n\n");
+
+                bw.close();
             }
         }
     }
