@@ -12,6 +12,7 @@ public class ChromeOptionsConfig {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
         chromeOptions.addArguments("--headless=new");
+        chromeOptions.addArguments("--disable-cache");
         return chromeOptions;
     }
 }
